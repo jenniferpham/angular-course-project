@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  currentRoute: string = 'Recipes';
+
+  onRouteChange(customEvent: string){
+    this.currentRoute = customEvent;
+  }
 }
