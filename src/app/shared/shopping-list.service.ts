@@ -1,8 +1,9 @@
-import {OnInit, EventEmitter} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {Ingredient} from './ingredient.model';
+import {Subject} from 'rxjs/Subject';
 
 export class ShoppingListService implements OnInit {
-    ingredientsChanged: EventEmitter<Ingredient[]> = new EventEmitter();
+    ingredientsChanged: Subject<Ingredient[]> = new Subject<Ingredient[]>();
 
     private ingredients: Ingredient[] = [
         new Ingredient('apple', 5),
@@ -12,20 +13,19 @@ export class ShoppingListService implements OnInit {
     constructor(){}
 
     ngOnInit(){
-        // this.shoppingIngAdd.subscribe(
-        //     (event: Ingredient)=>{
-        //         this.addToShoppingList(event);
-        //     }
-        // )
     }
 
-    getShoppingList(){
-        return this.ingredients.slice(); //get copy of ingredients array so you cant access original array directly
+    getIngredients(){
+        return this.ingredients.slice(); //copy of array
     }
-    
-    addToShoppingList(ing: Ingredient){
-        this.ingredients.push(ing);
-        this.ingredientsChanged.emit(this.ingredients.slice());  //emit a copy of this.ingredients array
 
+    addIngredient(ingredient: Ingredient){
+        this.ingredients.push(ingredient);
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    addIngredients(ingredients: Ingredient[]){
+        this.ingredients.push(...ingredients);
+        this.ingredientsChanged.next(this.ingredients.slice());
     }
 }

@@ -1,10 +1,10 @@
-import {EventEmitter} from '@angular/core';
 import {Recipe} from '../recipe-book/recipe.model';
 import {Ingredient} from '../shared/ingredient.model';
+import {Subject} from 'rxjs/Subject';
 
 export class RecipeService{
     // chosenRecipe: Recipe;
-    recipeSelected = new EventEmitter<Recipe>();
+    recipeSelected = new Subject<Recipe>();
     private recipes: Recipe[] = [
         new Recipe('Cheeseburger', 'simply a test description', 'https://mgtvkron.files.wordpress.com/2015/05/in-n-out-burger.jpg', [
             new Ingredient('Meat', 1),
@@ -24,6 +24,9 @@ export class RecipeService{
         return this.recipes.slice(); //get a copy of recipes array. can't access it directly
     }
 
+    chooseRecipe(index: number){
+        this.recipeSelected.next(this.recipes[index]);
+    }
     // getChosenRecipe(index: number){
     //     // console.log(eventRecipe)
     //     this.chosenRecipe = this.recipes[index];

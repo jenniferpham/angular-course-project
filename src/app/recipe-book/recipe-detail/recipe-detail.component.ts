@@ -10,27 +10,26 @@ import {ShoppingListService} from '../../shared/shopping-list.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  @Input() recipeDetail: Recipe;
+  // @Input() recipeDetail: Recipe;
   private recipeIngredients: Ingredient[];
-  // recipeDetail: Recipe;
+  recipeDetail: Recipe;
 
   
   constructor(private recipeService: RecipeService, private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
-    // this.recipeService.recipeSelected.subscribe(
-    //   (data: Recipe)=>{
-    //     this.recipeDetail = data;
-    //   }
-    // );
-    // this.recipeDetail = this.recipeService.recipeSelected;
+    this.recipeService.recipeSelected.subscribe(
+      (data: Recipe)=>{
+        this.recipeDetail = data;
+      }
+    );
   }
 
   addRecipeIngredients(){
     this.recipeIngredients = this.recipeDetail.ingredients;
     for(let i=0; i<this.recipeIngredients.length; i++){
       let recipeIngredient =  this.recipeIngredients[i];
-      this.shoppingListService.addToShoppingList(recipeIngredient);
+      this.shoppingListService.addIngredient(recipeIngredient);
     }
   }
 

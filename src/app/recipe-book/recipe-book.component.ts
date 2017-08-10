@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Recipe} from './recipe.model';
 import {RecipeService} from '../shared/recipe.service';
 
 @Component({
@@ -9,7 +8,6 @@ import {RecipeService} from '../shared/recipe.service';
   providers: [RecipeService]
 })
 export class RecipeBookComponent implements OnInit {
-  selectedRecipe: Recipe;
 
   constructor(private recipeService: RecipeService) { 
     
@@ -18,12 +16,6 @@ export class RecipeBookComponent implements OnInit {
   ngOnInit() {
   //  this.chosenRecipe = this.recipeService.chosenRecipe;
 
-  //whenever event is emitted, this variable will change
-  this.recipeService.recipeSelected.subscribe(
-    (recipe:Recipe) => {
-      this.selectedRecipe = recipe;
-    }
-  )
   }
 
   // getChosenRecipe(eventRecipe: Recipe){

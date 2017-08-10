@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Recipe} from '../../recipe.model';
 import {RecipeService} from '../../../shared/recipe.service';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-recipe-item',
@@ -18,7 +20,9 @@ export class RecipeItemComponent implements OnInit {
   }
 
   onSelected(recipe: Recipe){
-    this.recipeService.recipeSelected.emit(this.recipe);
+    this.recipeService.recipeSelected.next(recipe);
+    console.log('onselect');
+    
   }
 
 }
