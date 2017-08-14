@@ -1,14 +1,14 @@
-import { CourseProjectPage } from './app.po';
+import { NewCliPage } from './app.po';
 
-describe('course-project App', () => {
-  let page: CourseProjectPage;
+describe('new-cli App', () => {
+  let page: NewCliPage;
 
   beforeEach(() => {
-    page = new CourseProjectPage();
+    page = new NewCliPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
