@@ -1,32 +1,31 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Ingredient} from '../shared/ingredient.model';
-import {ShoppingListService} from '../shared/shopping-list.service';
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
+
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css'],
-  providers: []
+  styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
   private subscription: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) { }
 
   ngOnInit() {
-   this.ingredients = this.shoppingListService.getIngredients();
-   //shoppingListService will emit an event whenever a new ingredient is pushed to array to grab the new clone of original ingredients array. Then we change that in the UI
-   this.subscription = this.shoppingListService.ingredientsChanged.subscribe(
-     (ingredients: Ingredient[])=>{
-        this.ingredients = ingredients
-     }
-   )
+    this.ingredients = this.slService.getIngredients();
+    this.subscription = this.slService.ingredientsChanged
+      .subscribe(
+        (ingredients: Ingredient[]) => {
+          this.ingredients = ingredients;
+        }
+      );
   }
 
-  ngOnDestroy(){ //import to prevent any memory leaks
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }

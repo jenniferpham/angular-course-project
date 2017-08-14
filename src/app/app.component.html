@@ -1,14 +1,8 @@
-<!--todo: install bootstrap
-npm i bootstrap - - save
-.angular-cli.json: add bootstrap to styles array (path is relative from index.html)
--->
-<!--The content below is only a placeholder and can be replaced.-->
-<app-header (routeChange)="onRouteChange($event)"></app-header>
+<app-header (featureSelected)="onNavigate($event)"></app-header>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <app-recipe-book *ngIf="currentRoute ==='Recipes'"></app-recipe-book>
-      <app-shopping-list *ngIf="currentRoute !=='Recipes'"></app-shopping-list>
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
